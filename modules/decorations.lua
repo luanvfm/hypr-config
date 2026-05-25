@@ -2,6 +2,9 @@
 ---- LOOK AND FEEL ----
 -----------------------
 
+-- Import color palette (can swap colors.lua for dracula.lua, etc.)
+local colors = require("modules.colors")
+
 -- Refer to https://wiki.hypr.land/Configuring/Basics/Variables/
 hl.config({
     general = {
@@ -11,8 +14,9 @@ hl.config({
         border_size = 1,
 
         col = {
-            active_border   = { colors = {"rgba(33ccffee)"}},
-            inactive_border = "rgba(595959aa)",
+            -- Catppuccin Mocha: Mauve for active, Surface1 for inactive
+            active_border   = { colors = {"rgba(" .. colors.mauve .. "ee)"}},
+            inactive_border = "rgba(" .. colors.surface1 .. "aa)",
         },
 
         -- Set to true to enable resizing windows by clicking and dragging on borders and gaps
@@ -24,9 +28,15 @@ hl.config({
         layout = "dwindle",
     },
 
+    cursor = {
+        no_hardware_cursors = false,
+        inactive_timeout = 0,
+        hide_on_key_press = false,
+    },
+
     decoration = {
-        rounding       = 20,
-        rounding_power = 7,
+        rounding       = 8,
+        rounding_power = 3,
 
         -- Change transparency of focused and unfocused windows
         active_opacity   = 1.0,
@@ -36,7 +46,8 @@ hl.config({
             enabled      = true,
             range        = 20,
             render_power = 3,
-            color        = 0xee0a0a0a,
+            -- Catppuccin Mocha: subtle shadow with Surface0 color
+            color        = 0xee313244,
         },
 
         blur = {
