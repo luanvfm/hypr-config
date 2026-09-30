@@ -30,7 +30,8 @@ hl.bind(mainMod .. " + M",
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(menu))
-hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("/home/linho/.config/waybar/scripts/launch.sh"))
+-- SIGUSR1 e o comando nativo da Waybar para alternar visibilidade sem reiniciar.
+hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("pkill -SIGUSR1 waybar"))
 hl.bind(mainMod .. " + period", hl.dsp.exec_cmd("code"))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit")) -- dwindle only
@@ -40,12 +41,31 @@ hl.bind(mainMod .. " + TAB", hl.dsp.exec_cmd("rofi -show window"))
 hl.bind(mainMod .. " + SHIFT + I", hl.dsp.exec_cmd("hyprpicker -a -n"))
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("swaync-client -t -sw"))
 hl.bind(mainMod .. " + SHIFT + slash", hl.dsp.exec_cmd("/home/linho/.config/hypr/scripts/shortcuts.sh"))
+hl.bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd("/home/linho/.config/hypr/scripts/clipboard.sh"))
+hl.bind(mainMod .. " + CTRL + R", hl.dsp.exec_cmd("/home/linho/.config/hypr/scripts/record-region.sh"))
 
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
 hl.bind(mainMod .. " + up", hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + down", hl.dsp.focus({ direction = "down" }))
+
+-- Shift muda de "ir para" para "levar a janela ativa" nessa direcao.
+for _, direction in ipairs({ "left", "right", "up", "down" }) do
+    hl.bind(mainMod .. " + SHIFT + " .. direction, hl.dsp.window.move({ direction = direction }))
+end
+
+-- Super + Shift + R entra num modo temporario de redimensionamento.
+-- Nele, as setas aumentam ou diminuem a janela ativa em passos de 30 pixels.
+hl.bind(mainMod .. " + SHIFT + R", hl.dsp.submap("resize"))
+
+hl.define_submap("resize", function()
+    hl.bind("right", hl.dsp.window.resize({ x = 30, y = 0, relative = true }), { repeating = true })
+    hl.bind("left", hl.dsp.window.resize({ x = -30, y = 0, relative = true }), { repeating = true })
+    hl.bind("up", hl.dsp.window.resize({ x = 0, y = 30, relative = true }), { repeating = true })
+    hl.bind("down", hl.dsp.window.resize({ x = 0, y = -30, relative = true }), { repeating = true })
+    hl.bind("escape", hl.dsp.submap("reset"))
+end)
 
 -- Super + Shift + D alterna entre seus workspaces atuais e tres workspaces vazios.
 -- A lista termina no monitor central para manter o foco nele ao esconder janelas.
