@@ -9,7 +9,7 @@ local colors = require("modules.colors")
 hl.config({
     general = {
         gaps_in  = 8,
-        gaps_out = 10,
+        gaps_out = 8,
 
         border_size = 1,
 
@@ -44,7 +44,7 @@ hl.config({
 
         shadow = {
             enabled      = true,
-            range        = 20,
+            range        = 8,
             render_power = 3,
             -- Catppuccin Mocha: subtle shadow with Surface0 color
             color        = 0xee313244,

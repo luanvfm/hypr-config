@@ -3,25 +3,27 @@
 ---- MONITORS ----
 ------------------
 
--- Notebook
+-- Notebook: esquerda
 hl.monitor({
     output   = "eDP-1",
     mode     = "1920x1080@60",
-    position = "0x0",
+    position = "-1536x248", -- 1920 / 1.25 = 1536 de largura lógica
     scale    = "1.25",
 })
 
--- Monitor
- hl.monitor({
-    output = "HDMI-A-1",
-    mode = "1360x768@60",
-    position = "1536x0",
-    scale = "1",
+-- Monitor 180 Hz: centro
+hl.monitor({
+    output   = "HDMI-A-1",
+    mode     = "1920x1080@180",
+    position = "0x140",
+    scale    = "1",
 })
 
--- Workspaces 1-5 on main monitor
-hl.workspace_rule({ workspace = "1", monitor = "eDP-1", persistent = true})
-hl.workspace_rule({ workspace = "2", monitor = "eDP-1", persistent = true})
-hl.workspace_rule({ workspace = "3", monitor = "eDP-1", persistent = true})
-hl.workspace_rule({ workspace = "4", monitor = "eDP-1", persistent = true})
-hl.workspace_rule({ workspace = "5", monitor = "eDP-1", persistent = true})
+-- TV: direita
+hl.monitor({
+    output    = "DVI-I-2",
+    mode      = "preferred",
+    position  = "1920x0",
+    scale     = "1",
+    transform = 1,
+})

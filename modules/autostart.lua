@@ -11,5 +11,8 @@
     hl.exec_cmd("waybar")
     hl.exec_cmd("swaync")
     hl.exec_cmd("awww-daemon")
-end)
+    hl.exec_cmd("xrandr --output [HDMI-A-1] --primary")
+    --Pros monitores funcionarem
+    hl.exec_cmd("sleep 10 && hyprctl reload")
+    end)
 
