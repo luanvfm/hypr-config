@@ -13,10 +13,18 @@ for group = 1, 5 do
     hl.workspace_rule({ workspace = 300 + group, monitor = "DVI-I-2", persistent = true })
 end
 
--- Workspaces vazios usados pelo atalho Super + D para mostrar o wallpaper.
-hl.workspace_rule({ workspace = 901, monitor = "eDP-1", persistent = true })
-hl.workspace_rule({ workspace = 902, monitor = "HDMI-A-1", persistent = true })
-hl.workspace_rule({ workspace = 903, monitor = "DVI-I-2", persistent = true })
+-- Abre Sally Face no monitor central sem interferir nas transicoes do jogo.
+hl.window_rule({
+    name      = "sally-face-center",
+    match     = { class = "^Sally Face\\.x86_64$" },
+    workspace = 203,
+})
+
+-- Workspaces temporarios usados pelo atalho Super + D para mostrar o wallpaper.
+-- Eles nao sao persistentes para nao virarem abas permanentes na Waybar.
+hl.workspace_rule({ workspace = 901, monitor = "eDP-1" })
+hl.workspace_rule({ workspace = 902, monitor = "HDMI-A-1" })
+hl.workspace_rule({ workspace = 903, monitor = "DVI-I-2" })
 
 -- Example window rules that are useful
 
@@ -51,6 +59,13 @@ hl.window_rule({
 --     no_anim = true,
 -- })
 -- overlayLayerRule:set_enabled(false)
+
+-- O Hyprland, e nao o CSS da Waybar, anima a camada ao ocultar/mostrar.
+hl.layer_rule({
+    name      = "waybar-slide",
+    match     = { namespace = "^waybar$" },
+    animation = "slide top",
+})
 
 -- Hyprland-run windowrule
 hl.window_rule({

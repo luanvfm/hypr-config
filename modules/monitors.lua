@@ -5,10 +5,11 @@
 
 -- Notebook: esquerda
 hl.monitor({
-    output   = "eDP-1",
-    mode     = "1920x1080@60",
-    position = "-1536x248", -- 1920 / 1.25 = 1536 de largura lógica
-    scale    = "1.25",
+    output        = "eDP-1",
+    mode          = "1920x1080@60",
+    position      = "-1536x248", -- 1920 / 1.25 = 1536 de largura lógica
+    scale         = "1.25",
+    cm            = "edid",
 })
 
 -- Monitor 180 Hz: centro
