@@ -14,10 +14,19 @@
     -- Historico de clipboard: apenas texto, limitado a 50 entradas.
     hl.exec_cmd("wl-paste --type text --watch /home/linho/.config/hypr/scripts/cliphist-store.sh")
     hl.exec_cmd("xrandr --output [HDMI-A-1] --primary")
-    -- Inicia cada monitor no grupo 1 e deixa o foco no monitor central.
-    hl.dispatch(hl.dsp.focus({ workspace = 101 }))
-    hl.dispatch(hl.dsp.focus({ workspace = 301 }))
-    hl.dispatch(hl.dsp.focus({ workspace = 201 }))
+    -- Inicia no grupo 1 apenas os monitores que estiverem conectados.
+    -- A ordem deixa o foco no monitor central quando ele estiver presente.
+    local startupWorkspaces = {
+        { monitor = "eDP-1",    workspace = 101 },
+        { monitor = "DVI-I-2",  workspace = 301 },
+        { monitor = "HDMI-A-1", workspace = 201 },
+    }
+
+    for _, target in ipairs(startupWorkspaces) do
+        if hl.get_active_workspace(target.monitor) then
+            hl.dispatch(hl.dsp.focus({ workspace = target.workspace }))
+        end
+    end
     --Pros monitores funcionarem
     hl.exec_cmd("sleep 10 && hyprctl reload")
     end)
